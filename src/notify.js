@@ -2,8 +2,10 @@ import React, { PropTypes, Component } from 'react';
 import ReactDOM from 'react-dom';
 import assign from 'object-assign';
 
+const notificationWrapperId = 'notification-wrapper';
+
 /* React Notification Component */
-class Toast extends React.Component {
+class Toast extends Component {
 	static propTypes = {
 		text: PropTypes.string,
 		timeout: PropTypes.number,
@@ -112,7 +114,7 @@ function show({ text = null, timeout = null, position = null, action = null }) {
 		// Unmount react component after the animation finished.
 		setTimeout(function() {
 			hideToast();
-		}, renderTimeout + animationDuration);
+		}, renderTimeout + 0);
 
     return true;
 	}
@@ -176,7 +178,7 @@ function createShowQueue(initialRecallDelay = 500, recallDelayIncrement = 500) {
         if (show(current.text, current.type, current.timeout, current.color)) {
             this.currentRecallDelay = initialRecallDelay;
             if (current.timeout > 0) {
-                setTimeout(() => this.showNotify(), current.timeout + animationDuration);
+                setTimeout(() => this.showNotify(), current.timeout + 0);
             }
         } else {
             // If message show failed, re-add the current message to the front of the queue
@@ -186,7 +188,7 @@ function createShowQueue(initialRecallDelay = 500, recallDelayIncrement = 500) {
         }
     };
 
-    return (text, type = '', timeout = defaultTimeout, color = colorWhite) => {
+    return (text, type = '', timeout = 1000, color = colorWhite) => {
         this.msgs.push({text, type, timeout, color});
         if (!this.isNotifying) {
             this.showNotify();
@@ -195,7 +197,7 @@ function createShowQueue(initialRecallDelay = 500, recallDelayIncrement = 500) {
 }
 
 /* Export notification container */
-export default class extends React.Component {
+export default class extends Component {
 	render() {
 		const { timeout, position, animationDuration } = this.props;
 		return (
