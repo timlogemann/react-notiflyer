@@ -1,10 +1,10 @@
 {
-  "name": "react-notify-toast",
-  "title": "React Notify Toast",
+  "name": "react-notiflyer",
+  "title": "React Notiflyer",
   "version": "0.1.5",
-  "description": "Toast notifications for React.js",
-  "keywords": ["react", "toast", "notification", "component", "notify"],
-  "author": "Jesús Otero <hello@jesusoterogomez.com>",
+  "description": "Barebones React snackbar notifiction",
+  "keywords": ["react", "toast", "notification", "component", "notify", "snackbar", "notifly", "notiflyer"],
+  "author": "Hike <hello@gohike.nl>",
   "main": "bin/notify.js",
   "license": "MIT",
   "scripts": {
@@ -24,7 +24,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/jesusoterogomez/react-notify-toast.git"
+    "url": "git://github.com/timlogemann/react-notify-toast.git"
   },
   "dependencies": {
     "object-assign": "^3.0.0",
