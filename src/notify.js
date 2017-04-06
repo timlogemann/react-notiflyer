@@ -201,13 +201,14 @@ function createShowQueue(initialRecallDelay = 500, recallDelayIncrement = 500) {
 /* Export notification container */
 export default class extends Component {
   static propTypes = {
+    children: PropTypes.object,
     timeout: PropTypes.number,
     position: PropTypes.string,
     animationDuration: PropTypes.number,
   };
 
 	render() {
-		const { timeout, position, animationDuration } = this.props;
+		const { children, timeout, position, animationDuration } = this.props;
 		return (
 			<div id={notificationWrapperId}>
 				{React.Children.map(children, child =>
