@@ -1,6 +1,5 @@
 import React, { PropTypes, Component } from 'react';
 import ReactDOM from 'react-dom';
-import assign from 'object-assign';
 
 const notificationWrapperId = 'notification-wrapper';
 
@@ -11,16 +10,19 @@ class Toast extends Component {
 		timeout: PropTypes.number,
 		type: PropTypes.string,
 		color: PropTypes.object,
+    button: PropTypes.object,
 		style: PropTypes.oneOfType([
 			PropTypes.object,
-			PropTypes.bool
-		])
+			PropTypes.bool,
+		]),
 	};
 
 	constructor(props) {
+    super(props);
+
 		this.state = {
 			active: false,
-		}
+		};
 	}
 
 	componentWillMount() {
@@ -67,15 +69,15 @@ class Toast extends Component {
 		let { text, button, type = '' } = this.props;
 		return (
 			<div className={`snackbar ${type}`}>
-	      <div className="snack-content">
-	        <p>{text}</p>
-	      </div>
-	      <div className="snack-action">
-	        <button
-	          label={button.label}
-	          onClick={button.action}
-	        />
-	      </div>
+        <div className="snack-content">
+          <p>{text}</p>
+        </div>
+        <div className="snack-action">
+          <button
+            label={button.label}
+            onClick={button.action}
+          />
+        </div>
     </div>
 		);
 	}
@@ -128,7 +130,7 @@ function error({ text = null, timeout = null, position = null, action = null }) 
 		text,
 		timeout,
 		position,
-		action
+		action,
 	});
 }
 
@@ -138,7 +140,7 @@ function success({ text = null, timeout = null, position = null, action = null }
 		text,
 		timeout,
 		position,
-		action
+		action,
 	});
 }
 
@@ -189,7 +191,7 @@ function createShowQueue(initialRecallDelay = 500, recallDelayIncrement = 500) {
     };
 
     return (text, type = '', timeout = 1000, color = colorWhite) => {
-        this.msgs.push({text, type, timeout, color});
+        this.msgs.push({ text, type, timeout, color });
         if (!this.isNotifying) {
             this.showNotify();
         }
@@ -198,6 +200,12 @@ function createShowQueue(initialRecallDelay = 500, recallDelayIncrement = 500) {
 
 /* Export notification container */
 export default class extends Component {
+  static propTypes = {
+    timeout: PropTypes.number,
+    position: PropTypes.string,
+    animationDuration: PropTypes.number,
+  };
+
 	render() {
 		const { timeout, position, animationDuration } = this.props;
 		return (
@@ -219,5 +227,5 @@ export let notifly = {
 	show,
 	error,
 	success,
-  createShowQueue
+  createShowQueue,
 };
