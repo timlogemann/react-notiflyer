@@ -86,9 +86,10 @@ class Toast extends Component {
 /* Private Functions */
 
 /* Render React component */
-function renderToast(type = null, text = null, timeout = null, position = null, action = null) {
+function renderToast(type = null, text = null, timeout = null,
+position = null, button = { label: '', action: null }) {
 	ReactDOM.render(
-		<Toast text={text} timeout={timeout} type={type} position={position} action={action} />,
+		<Toast text={text} timeout={timeout} type={type} position={position} button={button} />,
 		document.getElementById(notificationWrapperId)
 	);
 }
@@ -102,12 +103,10 @@ function hideToast() {
 
 /* Show Animated Toast Message */
 /* Returns true if the toast was shown, or false if show failed due to an existing notification */
-function show({ text = null, timeout = null, position = null, action = null }) {
+function show({ type, text = null, timeout = 3000, position = null, action = null }) {
 	if (!document.getElementById(notificationWrapperId).hasChildNodes()) {
-		let renderTimeout = timeout || null;
-
 		// Render Component with Props.
-		renderToast(type, text, renderTimeout, position, action);
+		renderToast(type, text, timeout, position, action);
 
 		if (timeout === -1) {
 			return false;
@@ -116,7 +115,7 @@ function show({ text = null, timeout = null, position = null, action = null }) {
 		// Unmount react component after the animation finished.
 		setTimeout(function() {
 			hideToast();
-		}, renderTimeout + 0);
+		}, timeout + 0);
 
     return true;
 	}
