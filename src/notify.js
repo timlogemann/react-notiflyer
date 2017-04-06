@@ -31,9 +31,11 @@ class Toast extends Component {
 		this.timeout = setTimeout(() => {
       this.setState({ state: 'active' });
       this.timeout = null;
+      /*
       setTimeout(() => {
 				hideToast();
       });
+      */
     }, 100);
 	}
 
@@ -136,11 +138,9 @@ function show({
 		}
 
 		// Unmount react component after the animation finished.
-		/*
 		setTimeout(function() {
 			hideToast();
 		}, timeout + 110);
-		*/
 
     return true;
 	}
