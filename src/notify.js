@@ -73,6 +73,9 @@ class Toast extends Component {
 	render() {
 		const { text = '', button, type = '' } = this.props;
 		const { state } = this.state;
+
+		console.log('unMount', this.props.unMount);
+
 		return (
 			<div className={`snackbar ${type} ${state}`}>
         <div className="snack-content">
