@@ -14,7 +14,7 @@
     "notiflyer"
   ],
   "author": "Hike <hello@gohike.nl>",
-  "main": "src/notify.js",
+  "main": "bin/notify.js",
   "license": "MIT",
   "scripts": {
     "lint": "eslint src/",
@@ -23,11 +23,11 @@
     "read:version": "echo $npm_package_version"
   },
   "devDependencies": {
-    "babel-cli": "^6.10.1",
+    "babel-cli": "^6.24.0",
     "babel-eslint": "^4.1.8",
-    "babel-preset-es2015": "^6.5.0",
-    "babel-preset-react": "^6.5.0",
-    "babel-preset-stage-0": "^6.5.0",
+    "babel-preset-es2015": "^6.24.0",
+    "babel-preset-react": "^6.23.0",
+    "babel-preset-stage-0": "^6.22.0",
     "eslint": "^1.10.3",
     "eslint-plugin-react": "^6.10.3"
   },
