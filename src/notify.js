@@ -22,20 +22,20 @@ class Toast extends Component {
     super(props);
 
 		this.state = {
-			active: false,
+			state: 'inactive',
 		};
 	}
 
 	componentWillMount() {
 		this.timeout = setTimeout(() => {
-      this.setState({ active: true });
+      this.setState({ state: 'active' });
       this.timeout = null;
     }, 100);
 	}
 
 	componentDidMount() {
 		this.timeout = setTimeout(() => {
-      this.setState({ active: false });
+      this.setState({ state: 'inactive' });
       this.timeout = null;
     }, this.props.timeout);
 	}
@@ -67,9 +67,10 @@ class Toast extends Component {
 	*/
 
 	render() {
-		let { text = '', button, type = '' } = this.props;
+		const { text = '', button, type = '' } = this.props;
+		const { state } = this.state;
 		return (
-			<div className={`snackbar ${type}`}>
+			<div className={`snackbar ${type} ${state}`}>
         <div className="snack-content">
           <p>{text}</p>
         </div>
