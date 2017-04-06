@@ -12,6 +12,7 @@ class Toast extends Component {
 		type: PropTypes.string,
 		color: PropTypes.object,
     button: PropTypes.object,
+    unMount: PropTypes.func,
 		style: PropTypes.oneOfType([
 			PropTypes.object,
 			PropTypes.bool,
@@ -30,6 +31,9 @@ class Toast extends Component {
 		this.timeout = setTimeout(() => {
       this.setState({ state: 'active' });
       this.timeout = null;
+      setTimeout(() => {
+				this.props.unMount();
+      });
     }, 100);
 	}
 
@@ -131,9 +135,11 @@ function show({
 		}
 
 		// Unmount react component after the animation finished.
+		/*
 		setTimeout(function() {
 			hideToast();
-		}, timeout + 10);
+		}, timeout + 110);
+		*/
 
     return true;
 	}
@@ -233,6 +239,10 @@ export default class extends Component {
     position: PropTypes.string,
   };
 
+  unMountChild() {
+		hideToast();
+  }
+
 	render() {
 		const { children, timeout, position } = this.props;
 		return (
@@ -241,6 +251,7 @@ export default class extends Component {
           React.cloneElement(child, {
             timeout,
             position,
+            unMount: this.unMountChild,
           })
         )}
 			</div>
