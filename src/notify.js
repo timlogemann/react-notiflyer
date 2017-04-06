@@ -77,8 +77,11 @@ class Toast extends Component {
         {button ?
 					<div className="snack-action">
 						<button
+							className="button"
 							onClick={button.action}
-						>{button.label}</button>
+						>
+							<span>{button.label}</span>
+						</button>
 					</div>
         : null}
     </div>
