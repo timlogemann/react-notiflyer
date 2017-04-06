@@ -32,7 +32,7 @@ class Toast extends Component {
       this.setState({ state: 'active' });
       this.timeout = null;
       setTimeout(() => {
-				this.props.unMount();
+				hideToast();
       });
     }, 100);
 	}
@@ -73,8 +73,6 @@ class Toast extends Component {
 	render() {
 		const { text = '', button, type = '' } = this.props;
 		const { state } = this.state;
-
-		console.log('unMount', this.props.unMount);
 
 		return (
 			<div className={`snackbar ${type} ${state}`}>
@@ -242,10 +240,6 @@ export default class extends Component {
     position: PropTypes.string,
   };
 
-  unMountChild() {
-		hideToast();
-  }
-
 	render() {
 		const { children, timeout, position } = this.props;
 		return (
@@ -254,7 +248,6 @@ export default class extends Component {
           React.cloneElement(child, {
             timeout,
             position,
-            unMount: this.unMountChild,
           })
         )}
 			</div>
