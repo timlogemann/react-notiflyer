@@ -3,9 +3,18 @@
   "title": "React Notiflyer",
   "version": "0.1.5",
   "description": "Barebones React snackbar notifiction",
-  "keywords": ["react", "toast", "notification", "component", "notify", "snackbar", "notifly", "notiflyer"],
+  "keywords": [
+    "react",
+    "toast",
+    "notification",
+    "component",
+    "notify",
+    "snackbar",
+    "notifly",
+    "notiflyer"
+  ],
   "author": "Hike <hello@gohike.nl>",
-  "main": "bin/notify.js",
+  "main": "src/notify.js",
   "license": "MIT",
   "scripts": {
     "lint": "eslint src/",
@@ -20,14 +29,13 @@
     "babel-preset-react": "^6.5.0",
     "babel-preset-stage-0": "^6.5.0",
     "eslint": "^1.10.3",
-    "eslint-plugin-react": "^2.6.4"
+    "eslint-plugin-react": "^6.10.3"
   },
   "repository": {
     "type": "git",
     "url": "git://github.com/timlogemann/react-notify-toast.git"
   },
   "dependencies": {
-    "object-assign": "^3.0.0",
     "react": "^0.14.7 || ^15.0.0",
     "react-dom": "^0.14.7 || ^15.0.0"
   }
