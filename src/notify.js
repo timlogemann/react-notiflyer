@@ -8,6 +8,7 @@ class Toast extends Component {
 	static propTypes = {
 		text: PropTypes.string,
 		timeout: PropTypes.number,
+		animationDuration: PropTypes.number,
 		type: PropTypes.string,
 		color: PropTypes.object,
     button: PropTypes.object,
@@ -66,18 +67,20 @@ class Toast extends Component {
 	*/
 
 	render() {
-		let { text, button, type = '' } = this.props;
+		let { text = '', button, type = '' } = this.props;
 		return (
 			<div className={`snackbar ${type}`}>
         <div className="snack-content">
           <p>{text}</p>
         </div>
-        <div className="snack-action">
-          <button
-            label={button.label}
-            onClick={button.action}
-          />
+        {button ?
+					<div className="snack-action">
+						<button
+							label={button.label}
+							onClick={button.action}
+						/>
         </div>
+        : null}
     </div>
 		);
 	}
@@ -89,7 +92,13 @@ class Toast extends Component {
 function renderToast(type = null, text = null, timeout = null,
 position = null, button = { label: '', action: null }) {
 	ReactDOM.render(
-		<Toast text={text} timeout={timeout} type={type} position={position} button={button} />,
+		<Toast
+			text={text}
+			timeout={timeout}
+			type={type}
+			position={position}
+			button={button}
+		/>,
 		document.getElementById(notificationWrapperId)
 	);
 }
@@ -103,10 +112,16 @@ function hideToast() {
 
 /* Show Animated Toast Message */
 /* Returns true if the toast was shown, or false if show failed due to an existing notification */
-function show({ type, text = null, timeout = 3000, position = null, action = null }) {
+function show({
+	type,
+	text = null,
+	timeout = 3000,
+	position = null,
+	button = { label: null, action: null },
+}) {
 	if (!document.getElementById(notificationWrapperId).hasChildNodes()) {
 		// Render Component with Props.
-		renderToast(type, text, timeout, position, action);
+		renderToast(type, text, timeout, position, button);
 
 		if (timeout === -1) {
 			return false;
@@ -115,7 +130,7 @@ function show({ type, text = null, timeout = 3000, position = null, action = nul
 		// Unmount react component after the animation finished.
 		setTimeout(function() {
 			hideToast();
-		}, timeout + 0);
+		}, timeout + 10);
 
     return true;
 	}
@@ -123,23 +138,33 @@ function show({ type, text = null, timeout = 3000, position = null, action = nul
 	return false;
 }
 
-function error({ text = null, timeout = null, position = null, action = null }) {
+function error({
+	text = null,
+	timeout = null,
+	position = null,
+	button = null,
+}) {
 	show({
 		type: 'error',
 		text,
 		timeout,
 		position,
-		action,
+		button,
 	});
 }
 
-function success({ text = null, timeout = null, position = null, action = null }) {
+function success({
+	text = null,
+	timeout = null,
+	position = null,
+	button = null,
+}) {
 	show({
 		type: 'success',
 		text,
 		timeout,
 		position,
-		action,
+		button,
 	});
 }
 
@@ -203,18 +228,16 @@ export default class extends Component {
     children: PropTypes.object,
     timeout: PropTypes.number,
     position: PropTypes.string,
-    animationDuration: PropTypes.number,
   };
 
 	render() {
-		const { children, timeout, position, animationDuration } = this.props;
+		const { children, timeout, position } = this.props;
 		return (
 			<div id={notificationWrapperId}>
 				{React.Children.map(children, child =>
           React.cloneElement(child, {
             timeout,
             position,
-            animationDuration,
           })
         )}
 			</div>
